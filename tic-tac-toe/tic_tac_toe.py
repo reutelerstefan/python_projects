@@ -1,5 +1,5 @@
 
-
+import random
 def main(grid =  [n for n in range(1,10)]):
     print()
     print('-------------------------')
@@ -9,7 +9,14 @@ def main(grid =  [n for n in range(1,10)]):
     
     player1 = "X"
     player2 = "O"
-    player = player1
+    
+    if random.randint(0,1) == 0:
+       player = player1     
+    else: 
+        player = player2
+
+
+
     while True:
         grid,player_input = player_in(player, grid)
         grid  = place_input(player_input,player, grid)
@@ -58,14 +65,12 @@ def place_input(player_input,player, grid):
 
 def render_grid(list_input):
     
-    game_grid = "\n{0} {1} {2}\n{3} {4} {5} \n{6} {7} {8}".format(*list_input)
+    game_grid = "-------------\n| {0} | {1} | {2} |\n-------------\n| {3} | {4} | {5} |\n-------------\n| {6} | {7} | {8} |\n-------------\n".format(*list_input)
     print(game_grid)
 
 def check_game(grid,player):
 
     victory_conditions(grid,player)
-    
-   
     pass
 
 def victory_conditions(grid,player):
@@ -87,7 +92,7 @@ def victory_conditions(grid,player):
                 main()
             else:
                 quit()
-        
+        # If game is tied -> ugly checks if there is no remaing space 
     if sum_ind >= 9:
             print('The game is tied')
             print()
