@@ -9,18 +9,26 @@ def main():
     data_empty = []
 
     print(full_path)
-    regex = '.+,.+[ ]+[\d]+'
+    re = '.+, .+[ ]+[\d]+[\r\n]\s*(\w*\[.*\]\n)*'
+    regex = '.+(, [\d\w\'.,& ]+).*[\d]+'
 
-    with open(full_path, "r") as file:
+    with open(full_path, "r",encoding="utf8") as file:
         for line in file:
-            data_empty.append(line)
+            if not "Gutenberg collection between" in line:
+                data_empty.append(line)
+                
             # print(line)
+    data = " ".join(data_empty)
+    # print(data)
+    print(data)
+    test_re = re.findall(regex,data)
 
-    test_re = re.findall(regex, " ".join(data_empty))
+    # print(dir(data_empty))
+    # print("{},length: {}".format(data_empty,len(data_empty)))
+    for n in test_re[0:10]:
+          
 
-    print(dir(data_empty))
-    print("{},length: {}".format(data_empty[0:300],len(data_empty)))
-    print(test_re)
+        print(n.split('by'))
 
 if __name__ == "__main__":
     main()
